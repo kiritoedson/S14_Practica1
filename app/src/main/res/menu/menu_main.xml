@@ -10,4 +10,7 @@
     <item
         android:id="@+id/action_db"
         android:title="SQLiteDataBase" />
+    <item
+        android:id="@+id/action_dbtable"
+        android:title="Tabla" />
 </menu>

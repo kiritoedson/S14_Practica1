@@ -70,4 +70,20 @@ public class DBManager {
         }
         return cursor;
     }
+
+    public String[][] getAlumnos(){
+        Cursor rs=this.select();
+        String [][] alumnos= new String[rs.getCount()][rs.getColumnCount()];
+        int i=0;
+        if (rs.moveToFirst()){
+            do {
+                alumnos[i][0]=rs.getString(0);
+                alumnos[i][1]=rs.getString(1);
+                alumnos[i][2]=rs.getString(2);
+                alumnos[i][3]=rs.getString(3);
+                i++;
+            }while (rs.moveToNext());
+        }
+        return alumnos;
+    }
 }

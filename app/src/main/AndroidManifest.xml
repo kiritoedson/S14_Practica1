@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".DBActivity" />
-        <activity android:name=".AlumnoActivity"></activity>
+        <activity android:name=".AlumnoActivity" />
+        <activity android:name=".TableDbActivity"></activity>
     </application>
 
 </manifest>
