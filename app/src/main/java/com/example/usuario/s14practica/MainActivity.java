@@ -1,6 +1,7 @@
 package com.example.usuario.s14practica;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    DBManager dbManager;
+    ListView lista;
+    SimpleCursorAdapter adapter;
+    final String [] from=new String[]{Constantes.ID,Constantes.NOMBRE,Constantes.CARRERA,Constantes.CURP};
+    final int[] to=new int[]{R.id.id,R.id.nombre,R.id.carrera,R.id.curp};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +30,35 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        dbManager=new DBManager(this);
+        dbManager.open();
+        Cursor cursor=dbManager.select();
+
+        lista=findViewById(R.id.listView);
+        adapter=new SimpleCursorAdapter(this,R.layout.registro_layout,cursor,from,to,0);
+        adapter.notifyDataSetChanged();
+        lista.setAdapter(adapter);
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView idtv=view.findViewById(R.id.id);
+                Intent i=new Intent(getApplicationContext(),AlumnoActivity.class);
+                i.putExtra("id",idtv.getText().toString());
+                i.putExtra(Constantes.ACCION,Constantes.EDITAR);
+                startActivity(i);
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Intent i=new Intent(getApplicationContext(),AlumnoActivity.class);
+                i.putExtra(Constantes.ACCION,Constantes.INSERTAR);
+                startActivity(i);
             }
         });
     }
@@ -49,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_db) {
-            Intent i=new Intent(this,DBActivity.class);
+            Intent i = new Intent(this, DBActivity.class);
             startActivity(i);
             return true;
         }
