@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.usuario.s14practica.TableDbActivity">
+    tools:context=".TableDbActivity">
 
     <de.codecrafters.tableview.TableView
-        android:id="@+id/TableView"
+        android:id="@+id/tableView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></de.codecrafters.tableview.TableView>
 

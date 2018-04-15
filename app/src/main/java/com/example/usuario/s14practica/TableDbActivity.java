@@ -24,7 +24,7 @@ public class TableDbActivity extends AppCompatActivity {
         String[][] alumnos = dbManager.getAlumnos();
         String[] colHeaders = {"ID", "NOMBRE", "CARRERA", "CURP"};
 
-        TableView<String> tableView = (TableView<String[]>) findViewById(R.id.TableView);
+        TableView<String[]> tableView =(TableView<String[]>) findViewById(R.id.tableView);
         tableView.setColumnCount(4);
         TableColumnDpWidthModel colModel = new TableColumnDpWidthModel(this, 4, 200);
         colModel.setColumnWidth(0,50);
@@ -33,9 +33,9 @@ public class TableDbActivity extends AppCompatActivity {
         tableView.setHeaderBackgroundColor(getResources().getColor(R.color.colorPrimary));
         tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(this,colHeaders));
         tableView.setDataAdapter(new SimpleTableDataAdapter(this,alumnos));
-        tableView.addDataClickListener(new TableDataClickListener<String>() {
+        tableView.addDataClickListener(new TableDataClickListener<String[]>() {
             @Override
-            public void onDataClicked(int rowIndex, String clickedData) {
+            public void onDataClicked(int rowIndex, String[] clickedData) {
                 Toast.makeText(getApplicationContext(), ((String[])clickedData)[1], Toast.LENGTH_SHORT).show();
             }
         });
